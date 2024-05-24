@@ -1,0 +1,67 @@
+
+CREATE TABLE Customers(
+customerId int not null unique auto_increment primary key,
+customerName VARCHAR(45) not null,
+contactInfo VARCHAR(200) 
+);
+
+Use restaurant_reservations;
+
+CREATE TABLE Reservation_Table(
+reservationId int not null unique auto_increment primary key,
+customerId int not null ,
+reservationTime datetime not null,
+numberOfGuests int not null,
+specialRequests VARCHAR(200),
+foreign key (customerId) references Customers(customerId)
+);
+
+CREATE TABLE DiningPreferences(
+preferenceId int not null unique auto_increment primary key,
+customerId int not null,
+favoriteTable VARCHAR(45),
+dietaryRestrictions VARCHAR(200),
+foreign key (customerId) references Customers(customerId)
+);
+
+Insert Into Customers
+Values (1, "Paula", "Deane"), (2, "Lamar", "Johnson"), 
+	   (3, "Jesus", "Christ"), (4, "Jinzee", "Mang");
+       
+Insert Into diningpreferences
+Values (1, 1, "Paule table", "Peanut butter allergy"), 
+(2, 2, "Lamar Table","No onions"), (3, 3, "Jesus Table", "Vegan"), 
+(4, 4, "Jinzee Table", "Does not like fish");
+
+Insert Into Reservation_Table
+Values (1, 1, 05-30-2024, 4, "Signs us a song for $100 tip"), 
+(2, 2, 06-10-2024, 2, "No hair on food"), 
+(3, 3, 06-03-2024, 10, "Brings us alot of red wine"), 
+(4, 4, 06-15-2024, "No eggs");
+
+Delimiter //
+Create Procedure findReservations(In customerId INT)
+BEGIN
+	SELECT * FROM Reservation_Table;
+End//
+
+Delimiter //
+
+
+
+Create Procedure addSpecialRequest(In reservationId INT, 
+In requests VARCHAR(200))
+Begin
+	UPDATE Reservation_Table SET specialRequests = requests
+    Where reservationId = reservationid;
+End //
+
+Delimiter //
+
+Create Procedure addReservation(In customerId Int, 
+	In CustomerName VARCHAR(45), In contactInfo VARCHAR(200),
+    In reservationId int, reservationTime datetime,
+    In numberOfGuests int, specialRequests VARCHAR(200))
+Begin
+	SELECT CustomerId
+ENd//
